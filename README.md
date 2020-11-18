@@ -6,7 +6,7 @@ In this two part exercise you are tasked with create a REST API for accessing Di
 
 In the initial commit to this project, you have been provided with data for Disney villains. Your task is to implement an Express driven REST API that allows a user to retrieve this data. Your API should store its data in a database table and implement the routes defined below. Create a branch called `part-one-answer` to do this work in.
 
-### Requests and Expected Respones
+### Requests and Expected Response
 
 #### Get All
 
