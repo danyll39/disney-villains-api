@@ -6,17 +6,17 @@ GRANT ALL ON disney.*TO'villains'@'localhost';
 
 USE disney;
 
+
 CREATE TABLE villains (
-id int NULL,
+id INT auto_increment,
 name  VARCHAR(255),
 movie VARCHAR(255),
 slug VARCHAR(255),
 createdAt DATETIME DEFAULT NOW(),
 updatedAt DATETIME DEFAULT NOW() ON UPDATE NOW(),
 deletedAt DATETIME,
-primary key(slug)
+PRIMARY KEY(id)
 );
-
 INSERT INTO villains( name, movie, slug) VALUES ('Captain Hook', 'Peter Pan', 'captain-hook'); 
 INSERT INTO villains( name, movie, slug) VALUES ('Cruella-de-Vil', 'One Hundred and One Dalmatians', 'cruella-de-vil');
 INSERT INTO villains( name, movie, slug) VALUES ('Gaston', 'Beauty and the Beast', 'gaston');
@@ -35,10 +35,5 @@ INSERT INTO villains( name, movie, slug) VALUES ('Scar', 'The Lion King', 'scar'
 INSERT INTO villains( name, movie, slug) VALUES ('Shan Yu', 'Mulan', 'shan-yu');
 INSERT INTO villains( name, movie, slug) VALUES ('Shere Khan', 'The Jungle Book', 'shere-khan');
 INSERT INTO villains( name, movie, slug) VALUES ('Ursula', 'The Little Mermaid', 'ursula');
-
-
-
-
-
 
 
