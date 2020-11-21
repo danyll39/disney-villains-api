@@ -1,19 +1,24 @@
 const models = require('../models')
 
+const getAllVillains = async (request, response) => {
+  try {
+    const villains = await models.Villains.findAll()
 
-
-const getAllVillains = async (request, response) => { // grab all villain 
-  const villains = await models.Villains.findAll()
-
-  return response.send(villains)
+    return response.send(villains)
+  } catch (error) {
+    return response.status(400)
+  }
 }
+const getVillainBySlug = async (request, response) => {
+  try {
+    const { slug } = request.params
 
-const getVillainBySlug = async (request, response) => { // find one villain 
-  const { slug } = request.params
+    const foundVillain = await models.Villains.findOne({ where: { slug } })
 
-  const foundVillain = await models.Villains.findOne({ where: { slug } })
-
-  return response.send(foundVillain)
+    return response.send(foundVillain)
+  } catch (error) {
+    return response.status(400)
+  }
 }
 const saveNewVillain = async (request, response) => {
   const { name, movie, slug } = request.body
