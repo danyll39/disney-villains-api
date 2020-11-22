@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const villainsModel = require('./Villains')
+const villainsModel = require('./villains')
 
 const connection = new Sequelize('disney'// database
   , 'villains'// name of user
@@ -7,7 +7,6 @@ const connection = new Sequelize('disney'// database
   , {
     host: 'localhost', dialect: 'mysql'
   })
+const villains = villainsModel(connection, Sequelize)
 
-const Villains = villainsModel(connection, Sequelize)
-
-module.exports = { Villains }
+module.exports = { villains }

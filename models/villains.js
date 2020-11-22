@@ -3,11 +3,10 @@ const villains = (connection, Sequelize) => {
     id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
     name: { type: Sequelize.STRING },
     movie: { type: Sequelize.STRING },
-    slug: { type: Sequelize.STRING } // autoIncrement ??
-
+    slug: { type: Sequelize.STRING }
   }, {
     defaultScope: {
-      attributes: { exclude: ['id', 'createdAt', 'updatedAt', 'deletedAt'] } // change to include?
+      attributes: { exclude: ['id', 'createdAt', 'updatedAt', 'deletedAt'] }
     }
   }, { paranoid: true })
 }
