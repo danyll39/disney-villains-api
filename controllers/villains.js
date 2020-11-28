@@ -6,17 +6,20 @@ const getAllVillains = async (request, response) => {
 
     return response.send(villains)
   } catch (error) {
-    return response.status(500).send('Unknown error while retrieving all villains')
+    return response.status(500).send('Unknown error while retrieving villain')
   }
 }
+
 const getVillainBySlug = async (request, response) => {
   try {
     const { slug } = request.params
     const foundVillain = await models.villains.findOne({ where: { slug } })
 
-    return response.send(foundVillain)
+    return foundVillain
+      ? response.send(foundVillain)
+      : response.sendStatus(404)
   } catch (error) {
-    return response.status(500).send('Unknown error while retrieving villain')
+    return response.status(500).send('Unable to retrieve villain, please try again')
   }
 }
 const saveNewVillain = async (request, response) => {
@@ -30,8 +33,9 @@ const saveNewVillain = async (request, response) => {
 
     return response.status(201).send(newVillain)
   } catch (error) {
-    return response.status(500).send('Unknown error while saving new villain')
+    return response.status(500).send('Unknown error while retrieving villain')
   }
 }
+
 
 module.exports = { getAllVillains, getVillainBySlug, saveNewVillain }
