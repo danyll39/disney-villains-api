@@ -20,11 +20,12 @@ describe('Controllers - villains', () => {
   let stubbedSendStatus
   let stubbedStatusSend
   let stubbedStatus
+  let stubbedCreate
 
   before(() => {
     sandbox = sinon.createSandbox()
     stubbedFindOne = sandbox.stub(models.villains, 'findOne')
-
+    stubbedCreate = sandbox.stub(models.villains, 'create')
     stubbedSend = sandbox.stub()
     stubbedSendStatus = sandbox.stub()
     stubbedStatusSend = sandbox.stub()
@@ -55,7 +56,7 @@ describe('Controllers - villains', () => {
   })
   describe('getVillainBySlug', () => {
     // eslint-disable-next-line max-len
-    it('retrieves the team associated with the provided id from the database and calls response.send with it', async () => {
+    it('retrieves the villain associated with the provided id from the database and calls response.send with it', async () => {
       stubbedFindOne.returns(singleVillain)
       const request = { params: { slug: 'gaston' } }
 
@@ -84,17 +85,38 @@ describe('Controllers - villains', () => {
       expect(stubbedStatusSend).to.have.been.calledWith('Unable to retrieve villain, please try again')
     })
   })
-  describe('saveNewTeam', () => {
-    it('accepts new villain details and saves them as a new villain, returning the saved record 201 status', async () => {
+  describe('saveNewVillain', () => {
+    it('accepts new team details and saves them as a new villain, returning the saved record 201 status', async () => {
+      stubbedCreate.returns(singleVillain)
       const request = { body: singleVillain }
-
-      const stubbedCreate = sinon.stub(models.villains, 'create').returns(singleVillain)
 
       await saveNewVillain(request, response)
 
       expect(stubbedCreate).to.have.been.calledWith(singleVillain)
       expect(stubbedStatus).to.have.been.calledWith(201)
-      expect(stubbedStatusSend).to.have.been.calledWith(singleVillain)
+    })
+
+    it('returns a 404 when villain can not be added due to missing data', async () => {
+      const request = { body: 'not-found' }
+
+      await saveNewVillain(request, response)
+
+      expect(stubbedStatus).to.have.been.calledWith(404)
+      expect(stubbedStatusSend).to.have.been.calledWith('The following fields are required: name, movie, slug')
+    })
+
+    it('responds with a 500 status and error message with the database call throws an error', async () => {
+      stubbedCreate.throws('ERROR!')
+      const request = { body: singleVillain }
+
+      await saveNewVillain(request, response)
+
+      expect(stubbedCreate).to.have.been.calledWith(singleVillain)
+      expect(stubbedStatus).to.have.been.calledWith(500)
+      expect(stubbedStatusSend).to.have.been.calledWith('Unable to save villain, please try again')
     })
   })
 })
+
+
+
