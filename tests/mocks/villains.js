@@ -14,12 +14,7 @@ const singleVillain = {
   movie: 'Beauty and the Beast',
   slug: 'gaston',
 }
-const postedVillain = {
-  name: 'Gaston',
-  movie: 'Beauty and the Beast',
-  slug: 'gaston',
-}
 
 
-module.exports = { villainsList, singleVillain, postedVillain }
+module.exports = { villainsList, singleVillain }
 
