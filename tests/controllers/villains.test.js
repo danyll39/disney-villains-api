@@ -21,11 +21,13 @@ describe('Controllers - villains', () => {
   let stubbedStatusSend
   let stubbedStatus
   let stubbedCreate
+  let stubbedFindAll
 
   before(() => {
     sandbox = sinon.createSandbox()
     stubbedFindOne = sandbox.stub(models.villains, 'findOne')
     stubbedCreate = sandbox.stub(models.villains, 'create')
+    stubbedFindAll = sandbox.stub(models.villains, 'findAll')
     stubbedSend = sandbox.stub()
     stubbedSendStatus = sandbox.stub()
     stubbedStatusSend = sandbox.stub()
@@ -46,12 +48,23 @@ describe('Controllers - villains', () => {
 
   describe('getAllVillains', () => {
     it('retrieves a list of villains from the database and calls response.send() with the list', async () => {
-      const stubbedFindAll = sinon.stub(models.villains, 'findAll').returns(villainsList)
+      stubbedFindAll.returns(villainsList)
 
       await getAllVillains({}, response)
 
       expect(stubbedFindAll).to.have.callCount(1)
       expect(stubbedSend).to.have.been.calledWith(villainsList)
+    })
+    it('responds with a 500 status and error message with the database call throws an error', async () => {
+      stubbedFindAll.throws('ERROR!')
+      const request = { body: villainsList }
+
+      await getAllVillains(request, response)
+
+
+
+      expect(stubbedStatus).to.have.been.calledWith(500)
+      expect(stubbedStatusSend).to.have.been.calledWith('Unable to retrieve villains, please try again')
     })
   })
   describe('getVillainBySlug', () => {
