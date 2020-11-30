@@ -61,8 +61,6 @@ describe('Controllers - villains', () => {
 
       await getAllVillains(request, response)
 
-
-
       expect(stubbedStatus).to.have.been.calledWith(500)
       expect(stubbedStatusSend).to.have.been.calledWith('Unable to retrieve villains, please try again')
     })
@@ -108,7 +106,6 @@ describe('Controllers - villains', () => {
       expect(stubbedCreate).to.have.been.calledWith(singleVillain)
       expect(stubbedStatus).to.have.been.calledWith(201)
     })
-
     it('returns a 404 when villain can not be added due to missing data', async () => {
       const request = { body: 'not-found' }
 
@@ -117,7 +114,6 @@ describe('Controllers - villains', () => {
       expect(stubbedStatus).to.have.been.calledWith(404)
       expect(stubbedStatusSend).to.have.been.calledWith('The following fields are required: name, movie, slug')
     })
-
     it('responds with a 500 status and error message with the database call throws an error', async () => {
       stubbedCreate.throws('ERROR!')
       const request = { body: singleVillain }
@@ -130,6 +126,3 @@ describe('Controllers - villains', () => {
     })
   })
 })
-
-
-

@@ -15,6 +15,4 @@ const singleVillain = {
   slug: 'gaston',
 }
 
-
 module.exports = { villainsList, singleVillain }
-

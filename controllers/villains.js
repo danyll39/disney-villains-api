@@ -9,7 +9,6 @@ const getAllVillains = async (request, response) => {
     return response.status(500).send('Unable to retrieve villains, please try again')
   }
 }
-
 const getVillainBySlug = async (request, response) => {
   try {
     const { slug } = request.params
@@ -36,6 +35,5 @@ const saveNewVillain = async (request, response) => {
     return response.status(500).send('Unable to save villain, please try again')
   }
 }
-
 
 module.exports = { getAllVillains, getVillainBySlug, saveNewVillain }
